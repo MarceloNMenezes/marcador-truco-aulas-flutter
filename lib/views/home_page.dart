@@ -17,10 +17,25 @@ class _HomePageState extends State<HomePage> {
     
   }
 
-  void _resetPlayer({Player player, bool resetVictories = true}) {
+  
+  void _resetGame({Player player, bool resetVictories = true}) {
     setState(() {
       player.score = 0;
       if (resetVictories) player.victories = 0;
+    });
+  }
+  
+
+  void _resetAll({bool resetVictories = true}) {
+    _resetGame(player: _playerOne, resetVictories: resetVictories);
+    _resetGame(player: _playerTwo, resetVictories: resetVictories);
+  }
+  
+  
+  void _resetPlayer({Player player, bool resetVictories = true}) {
+    setState(() {
+      player.score = 0;
+      
     });
   }
 
@@ -38,12 +53,15 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              _showDialog(
+              _showDialogReset(
                   title: 'Zerar',
                   message:
                       'Tem certeza que deseja começar novamente a pontuação?',
-                  confirm: () {
-                    _resetPlayers();
+                      confirm: (){
+                        _resetPlayers();
+                      },
+                  allConfirm: () {
+                    _resetAll();
                   });
             },
             icon: Icon(Icons.refresh),
@@ -137,6 +155,7 @@ class _HomePageState extends State<HomePage> {
           text: '-1',
           color: Colors.black.withOpacity(0.1),
           onTap: () {
+            if(player.score > 0)
             setState(() {
               player.score--;
             });
@@ -146,6 +165,7 @@ class _HomePageState extends State<HomePage> {
           text: '+1',
           color: Colors.deepOrangeAccent,
           onTap: () {
+            if(player.score < 12)
             setState(() {
               player.score++;
             });
@@ -173,8 +193,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _showDialog(
-      {String title, String message, Function confirm, Function cancel}) {
+ 
+ 
+ void _showDialog(
+      {String title, String message, Function confirm, Function cancel, Function allConfirm}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -196,6 +218,47 @@ class _HomePageState extends State<HomePage> {
                 if (confirm != null) confirm();
               },
             ),
+           
+          ],
+        );
+      },
+    );
+  }
+ 
+ 
+ 
+ 
+ 
+  void _showDialogReset(
+      {String title, String message, Function confirm, Function cancel, Function allConfirm}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("CANCEL"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (cancel != null) cancel();
+              },
+            ),
+            FlatButton(
+              child: Text("Reset"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (confirm != null) confirm();
+              },
+            ),
+            FlatButton(
+              child: Text("Reset All"),
+              onPressed: (){
+                Navigator.of(context).pop();
+                if(allConfirm != null) allConfirm();
+              },
+            )
           ],
         );
       },
