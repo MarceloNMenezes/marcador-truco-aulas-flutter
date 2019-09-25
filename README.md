@@ -2,6 +2,10 @@
 
 Aplicativo para marcar os pontos no jogo de truco criado para disciplina de Programação Mobile.
 
+Desenvolvido por:
+-   Marcelo Menezes RA 0040481821025
+-   Leonardo Longo RA 0040481821022
+
 Tutorial de criação deste app: http://bit.ly/2MDO6ww
 
 <p align="center">
