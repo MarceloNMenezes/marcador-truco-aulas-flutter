@@ -170,6 +170,14 @@ class _HomePageState extends State<HomePage> {
               player.score++;
             });
 
+            if(_playerOne.score == 11 && _playerTwo.score == 11)
+            _showDialogFerro(
+              title: 'MÃO DE FERRO',
+              message: 'Boa sorte',
+               );
+            
+            
+
             if (player.score == 12) {
               _showDialog(
                   title: 'Fim do jogo',
@@ -193,11 +201,34 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
- 
+  void _showDialogFerro( {String title, String message,Function confirm}) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            
+            FlatButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (confirm != null) confirm();
+              },
+            ),
+           
+          ],
+        );
+      },
+    );
+  }
  
  void _showDialog(
       {String title, String message, Function confirm, Function cancel, Function allConfirm}) {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -232,6 +263,7 @@ class _HomePageState extends State<HomePage> {
   void _showDialogReset(
       {String title, String message, Function confirm, Function cancel, Function allConfirm}) {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
