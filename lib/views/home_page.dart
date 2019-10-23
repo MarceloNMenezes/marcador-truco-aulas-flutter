@@ -17,6 +17,52 @@ class _HomePageState extends State<HomePage> {
     
   }
 
+
+  TextEditingController _name = TextEditingController();
+
+
+  void resetFields() {
+    _name.text = '';
+  }
+
+
+  Widget _editPlayerName(Player player){
+    return GestureDetector(
+      onTap: (){
+        
+        showDialog(context: context,
+            builder: (context){
+              return AlertDialog(title: Text("Alterar nome"),
+                  content: TextField(controller: _name,
+                  decoration: InputDecoration(hintText: "Novo nome")),
+                  actions: <Widget>[FlatButton(child: Text("Cancelar"),
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                    FlatButton(child: Text("Ok"),
+                        onPressed: (){
+                          ;
+                          setState((){
+                            player.name = _name.text;
+                            Navigator.of(context).pop();
+                            _playerOne.name =='' && _name.text == ''? player.name ="Nós": _name.text;
+                            _playerTwo.name =='' && _name.text == ''? player.name ="Eles": _name.text;
+                            resetFields();
+                          });
+                        }
+                    )
+                  ]
+              );
+            }
+        );
+      },
+      child: Container(
+          child: _showPlayerName(player.name)
+      ),
+    );
+  }
+
   
   void _resetGame({Player player, bool resetVictories = true}) {
     setState(() {
@@ -29,6 +75,8 @@ class _HomePageState extends State<HomePage> {
   void _resetAll({bool resetVictories = true}) {
     _resetGame(player: _playerOne, resetVictories: resetVictories);
     _resetGame(player: _playerTwo, resetVictories: resetVictories);
+    _playerOne = Player(name: "Nós", score: 0, victories: 0);
+    _playerTwo = Player(name: "Eles", score: 0, victories: 0);
   }
   
   
@@ -79,7 +127,8 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _showPlayerName(player.name),
+         // _showPlayerName(player.name),
+          _editPlayerName(player),
           _showPlayerScore(player.score),
           _showPlayerVictories(player.victories),
           _showScoreButtons(player),
@@ -99,6 +148,11 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+
+
+
+
+  
 
   Widget _showPlayerName(String name) {
     return Text(
@@ -297,3 +351,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
+Widget buildTextFormField(
+      {TextEditingController controller, String error, String label}) {
+    return TextFormField(
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(labelText: label),
+      controller: controller,
+      validator: (text) {
+        return text.isEmpty ? error : null;
+      },
+    );
+  }
