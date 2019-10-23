@@ -14,63 +14,60 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _resetPlayers();
-    
   }
 
-
   TextEditingController _name = TextEditingController();
-
 
   void resetFields() {
     _name.text = '';
   }
 
-
-  Widget _editPlayerName(Player player){
+  Widget _editPlayerName(Player player) {
     return GestureDetector(
-      onTap: (){
-        
-        showDialog(context: context,
-            builder: (context){
-              return AlertDialog(title: Text("Alterar nome"),
-                  content: TextField(controller: _name,
-                  decoration: InputDecoration(hintText: "Novo nome")),
-                  actions: <Widget>[FlatButton(child: Text("Cancelar"),
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                    FlatButton(child: Text("Ok"),
-                        onPressed: (){
-                          ;
-                          setState((){
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                  title: Text("Alterar nome"),
+                  content: TextField(
+                      controller: _name,
+                      decoration: InputDecoration(hintText: "Novo nome")),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("Cancelar"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    FlatButton(
+                        child: Text("Ok"),
+                        onPressed: () {
+                          setState(() {
                             player.name = _name.text;
                             Navigator.of(context).pop();
-                            _playerOne.name =='' && _name.text == ''? player.name ="Nós": _name.text;
-                            _playerTwo.name =='' && _name.text == ''? player.name ="Eles": _name.text;
+                            _playerOne.name == '' && _name.text == ''
+                                ? player.name = "Nós"
+                                : _name.text;
+                            _playerTwo.name == '' && _name.text == ''
+                                ? player.name = "Eles"
+                                : _name.text;
                             resetFields();
                           });
-                        }
-                    )
-                  ]
-              );
-            }
-        );
+                        })
+                  ]);
+            });
       },
-      child: Container(
-          child: _showPlayerName(player.name)
-      ),
+      child: Container(child: _showPlayerName(player.name)),
     );
   }
 
-  
   void _resetGame({Player player, bool resetVictories = true}) {
     setState(() {
       player.score = 0;
       if (resetVictories) player.victories = 0;
     });
   }
-  
 
   void _resetAll({bool resetVictories = true}) {
     _resetGame(player: _playerOne, resetVictories: resetVictories);
@@ -78,12 +75,10 @@ class _HomePageState extends State<HomePage> {
     _playerOne = Player(name: "Nós", score: 0, victories: 0);
     _playerTwo = Player(name: "Eles", score: 0, victories: 0);
   }
-  
-  
+
   void _resetPlayer({Player player, bool resetVictories = true}) {
     setState(() {
       player.score = 0;
-      
     });
   }
 
@@ -105,9 +100,9 @@ class _HomePageState extends State<HomePage> {
                   title: 'Zerar',
                   message:
                       'Tem certeza que deseja começar novamente a pontuação?',
-                      confirm: (){
-                        _resetPlayers();
-                      },
+                  confirm: () {
+                    _resetPlayers();
+                  },
                   allConfirm: () {
                     _resetAll();
                   });
@@ -127,7 +122,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-         // _showPlayerName(player.name),
+          // _showPlayerName(player.name),
           _editPlayerName(player),
           _showPlayerScore(player.score),
           _showPlayerVictories(player.victories),
@@ -149,18 +144,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-
-
-  
-
   Widget _showPlayerName(String name) {
     return Text(
       name.toUpperCase(),
       style: TextStyle(
-          fontSize: 22.0,
-          fontWeight: FontWeight.w500,
-          color: Colors.purple),
+          fontSize: 22.0, fontWeight: FontWeight.w500, color: Colors.purple),
     );
   }
 
@@ -209,28 +197,26 @@ class _HomePageState extends State<HomePage> {
           text: '-1',
           color: Colors.black.withOpacity(0.1),
           onTap: () {
-            if(player.score > 0)
-            setState(() {
-              player.score--;
-            });
+            if (player.score > 0)
+              setState(() {
+                player.score--;
+              });
           },
         ),
         _buildRoundedButton(
           text: '+1',
           color: Colors.purpleAccent,
           onTap: () {
-            if(player.score < 12)
-            setState(() {
-              player.score++;
-            });
+            if (player.score < 12)
+              setState(() {
+                player.score++;
+              });
 
-            if(_playerOne.score == 11 && _playerTwo.score == 11)
-            _showDialogFerro(
-              title: 'MÃO DE FERRO',
-              message: 'Boa sorte',
-               );
-            
-            
+            if (_playerOne.score == 11 && _playerTwo.score == 11)
+              _showDialogFerro(
+                title: 'MÃO DE FERRO',
+                message: 'Boa sorte',
+              );
 
             if (player.score == 12) {
               _showDialog(
@@ -255,7 +241,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _showDialogFerro( {String title, String message,Function confirm}) {
+  void _showDialogFerro({String title, String message, Function confirm}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -264,7 +250,6 @@ class _HomePageState extends State<HomePage> {
           title: Text(title),
           content: Text(message),
           actions: <Widget>[
-            
             FlatButton(
               child: Text("OK"),
               textColor: Colors.purpleAccent,
@@ -273,15 +258,18 @@ class _HomePageState extends State<HomePage> {
                 if (confirm != null) confirm();
               },
             ),
-           
           ],
         );
       },
     );
   }
- 
- void _showDialog(
-      {String title, String message, Function confirm, Function cancel, Function allConfirm}) {
+
+  void _showDialog(
+      {String title,
+      String message,
+      Function confirm,
+      Function cancel,
+      Function allConfirm}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -306,19 +294,18 @@ class _HomePageState extends State<HomePage> {
                 if (confirm != null) confirm();
               },
             ),
-           
           ],
         );
       },
     );
   }
- 
- 
- 
- 
- 
+
   void _showDialogReset(
-      {String title, String message, Function confirm, Function cancel, Function allConfirm}) {
+      {String title,
+      String message,
+      Function confirm,
+      Function cancel,
+      Function allConfirm}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -343,9 +330,9 @@ class _HomePageState extends State<HomePage> {
             ),
             FlatButton(
               child: Text("Reset All"),
-              onPressed: (){
+              onPressed: () {
                 Navigator.of(context).pop();
-                if(allConfirm != null) allConfirm();
+                if (allConfirm != null) allConfirm();
               },
             )
           ],
@@ -354,5 +341,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-

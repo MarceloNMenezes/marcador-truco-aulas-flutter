@@ -9,7 +9,7 @@ Desenvolvido por:
 Tutorial de criação deste app: http://bit.ly/2MDO6ww
 
 <p align="center">
-    <img src="https://miro.medium.com/max/1440/1*UhBQQqZamLVMRhYtkKnhpA.png" width="800"/>
+    <img src="[img]https://i.ibb.co/Jd2yMq9/Whats-App-Image-2019-10-23-at-14-08-03.jpg" width="800"/>
 </p>
 
 ## Como clonar e importar
