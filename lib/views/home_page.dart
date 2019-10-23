@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: Colors.purple,
         title: Text("Marcador Pontos (Truco!)"),
         actions: <Widget>[
           IconButton(
@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
       style: TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.w500,
-          color: Colors.deepOrange),
+          color: Colors.purple),
     );
   }
 
@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage> {
         ),
         _buildRoundedButton(
           text: '+1',
-          color: Colors.deepOrangeAccent,
+          color: Colors.purpleAccent,
           onTap: () {
             if(player.score < 12)
             setState(() {
@@ -353,14 +353,3 @@ class _HomePageState extends State<HomePage> {
 }
 
 
-Widget buildTextFormField(
-      {TextEditingController controller, String error, String label}) {
-    return TextFormField(
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(labelText: label),
-      controller: controller,
-      validator: (text) {
-        return text.isEmpty ? error : null;
-      },
-    );
-  }
