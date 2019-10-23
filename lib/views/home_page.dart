@@ -267,6 +267,7 @@ class _HomePageState extends State<HomePage> {
             
             FlatButton(
               child: Text("OK"),
+              textColor: Colors.purpleAccent,
               onPressed: () {
                 Navigator.of(context).pop();
                 if (confirm != null) confirm();
@@ -291,6 +292,7 @@ class _HomePageState extends State<HomePage> {
           actions: <Widget>[
             FlatButton(
               child: Text("CANCEL"),
+              color: Colors.purpleAccent,
               onPressed: () {
                 Navigator.of(context).pop();
                 if (cancel != null) cancel();
@@ -298,6 +300,7 @@ class _HomePageState extends State<HomePage> {
             ),
             FlatButton(
               child: Text("OK"),
+              color: Colors.purpleAccent,
               onPressed: () {
                 Navigator.of(context).pop();
                 if (confirm != null) confirm();
